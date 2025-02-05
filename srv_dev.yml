@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  front:
+    image: ${service_image}
+    container_name: luxmax_service_main_front2
+    restart: always
+    environment:
+      - NODE_ENV_MODE=development
+      - NUXT_ENV=development
+    networks:
+      main_front_network:
+        ipv4_address: 172.10.10.2
+
+networks:
+  main_front_network:
+    external: true

@@ -1,0 +1,93 @@
+# Specify the stages for your pipeline(s)
+stages:
+  - build
+  - deploy
+  
+variables:
+  IMAGE_REGISTRY: "hub.batrix.co.uk"
+  IMAGE_REGISTRY_PATH: "hub.batrix.co.uk/luxmax"
+  IMAGE_ADDRESS: $IMAGE_REGISTRY_PATH/$CI_PROJECT_NAME
+  RUNNER_BUILD: ""
+  RUNNER_DEPLOY: ""
+  TAG_NAME: "$CI_COMMIT_REF_NAME"
+  DOCKER_COMPOSE: ""
+  ENVIRONMENT: ""
+  ENV: ""
+
+# Template Build
+.build-template:
+  stage: build
+  tags:
+    - $RUNNER_BUILD
+  script:
+    - cp $ENV .env
+    - echo "$HUB_REGISTRY_PASSWORD" | docker login -u "$HUB_REGISTRY_USER" --password-stdin "$IMAGE_REGISTRY"
+    - docker build -t $IMAGE_ADDRESS:$CI_COMMIT_REF_NAME .
+    - docker push $IMAGE_ADDRESS:$CI_COMMIT_REF_NAME
+
+
+
+
+# Template Deploy
+.deploy-template:
+  stage: deploy
+  tags:
+    - $RUNNER_DEPLOY
+  script:
+    - cd /opt/luxmax-services/$CI_PROJECT_NAME
+    - git fetch origin $ENVIRONMENT
+    - git reset --hard origin/$ENVIRONMENT
+    - sed -i 's/Image_Tag/$TAG_NAME/g' $DOCKER_COMPOSE
+    - docker compose -f $DOCKER_COMPOSE up -d --pull always
+
+
+###################################
+# Stage Build & Deplpy
+stage-build:
+  extends: .build-template
+  variables: 
+    RUNNER_BUILD: stage-docker
+    ENV: .env.stage
+  only:
+    refs:
+      - stage2
+
+
+
+stage-develop:
+  extends: .deploy-template
+  variables: 
+    DOCKER_COMPOSE: docker-compose-dev.yml
+    RUNNER_DEPLOY: stage-shell
+    ENVIRONMENT: stage2
+  only:
+    refs:
+      - stage2
+
+
+
+###################################
+# Production Build & Deplpy
+production-build:
+  extends: .build-template
+  variables: 
+    RUNNER_BUILD: production-docker
+    ENV: .env.production
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_REF_NAME =~ /-production$/
+
+
+production-develop:
+  extends: .deploy-template
+  variables: 
+    DOCKER_COMPOSE: docker-compose-production.yml
+    RUNNER_DEPLOY: production-shell
+    ENVIRONMENT: production
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_REF_NAME =~ /-production$/

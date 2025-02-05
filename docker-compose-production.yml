@@ -1,0 +1,15 @@
+services:
+  main_front:
+    image: hub.batrix.co.uk/luxmax/main_front:$TAG_NAME
+    container_name: main_front
+    restart: always
+    ports:
+      - "3002:3000"
+    env_file:
+      - .env.production
+    networks:
+      - core_default
+
+networks:
+  core_default:
+    external: true

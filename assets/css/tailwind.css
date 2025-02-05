@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .gridClass {
+    @apply w-mobile-s-grid mobile-m:w-mobile-m-grid mobile-l:w-mobile-l-grid tablet:w-tablet-grid laptop:w-laptop-grid laptop-l:w-laptop-l-grid 4k:w-4k-grid mx-auto;
+  }
+  .gridClass-mobile {
+    @apply w-mobile-s-grid mobile-m:w-mobile-m-grid mobile-l:w-mobile-l-grid tablet:w-tablet-grid laptop:w-full mx-auto;
+  }
+  .base-container {
+    @apply w-full max-w-[1440px] mx-auto;
+  }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body,
+#__nuxt {
+  font-family: Inter;
+  overflow-x: hidden;
+  width: 100%;
+  border-bottom: unset !important;
+}
+
+.h-screen {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  @apply h-[calc(100dvh)];
+}
+
+.min-h-screen {
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  @apply min-h-[calc(100dvh)];
+}
+
+.max-h-screen {
+  max-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  @apply max-h-[calc(100dvh)];
+}
+
+html,
+body {
+  /* background-color: #2F3D2E; */
+}
+#__nuxt {
+  background-color: white;
+}
+
+html:before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 999px;
+  top: -999px;
+  background-color: #2f3d2e;
+}
+
+input,
+textarea {
+  outline: none !important;
+  font-family: Inter;
+}
+
+textarea {
+  resize: none;
+}
+
+table {
+  margin: 0 !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.55s ease-in-out;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(8px);
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: all 0.55s ease-in-out;
+}
+.layout-enter-from,
+.layout-leave-to {
+  opacity: 0;
+  filter: blur(8px);
+}
+h1,h2,h3,h4,h5,h6{
+  font-size: unset;
+  color: unset;
+  line-height: normal;
+  font-weight: unset;
+}
+}
+
+/* @font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/inter-v13-latin-100.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 200;
+  src: url("../fonts/inter-v13-latin-200.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/inter-v13-latin-300.woff2");
+  font-display: swap;
+} */
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/inter-v13-latin-regular.woff2");
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/inter-v13-latin-500.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/inter-v13-latin-600.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/inter-v13-latin-700.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/inter-v13-latin-800.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/inter-v13-latin-900.woff2");
+  font-display: swap;
+} */
+
+@font-face {
+  font-family: Granjon;
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Granjon.otf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Cinzel;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/cinzel-decorative-v16-latin-regular.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Cinzel;
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/cinzel-decorative-v16-latin-700.woff2");
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: Cinzel;
+  font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/cinzel-decorative-v16-latin-900.woff2");
+  font-display: swap;
+} */
