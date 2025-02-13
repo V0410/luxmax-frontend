@@ -144,9 +144,6 @@
                 </div>
             </template>
         </div>
-        <!-- {{ form }} -->
-        <!-- {{ offer }} -->
-        <!-- {{ plans }} -->
     </div>
 </template>
 
