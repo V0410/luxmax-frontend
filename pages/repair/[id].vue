@@ -198,7 +198,7 @@ setTimeout(() => {
     dataRows.value = [
         {
             text: t("Subtotal"),
-            amount: step === 2? 0 : Math.round(orderData?.value?.totalPrice) ? 25 : 0,
+            amount: (orderData?.value?.totalPrice / 4).toFixed(2),
             isSubtract: false,
         },
     ];

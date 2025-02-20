@@ -106,7 +106,6 @@ const titleStyle = computed(() => ({
 // Dynamic background image style based on computed bgImageSrc
 const bgImageStyle = computed(() => ({
     background: `url(${bgImageSrc.value}) no-repeat center top`,
-    backgroundSize: 'cover',
     backgroundColor: process.client ? window.innerWidth >= 640 ? 'white' : '#154033' : 'white',
     backgroundSize: process.client ? window.innerWidth < 400 ? 'cover' : 'cover' : 'cover',
     height: '100%',

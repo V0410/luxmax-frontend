@@ -1,16 +1,13 @@
 FROM node:18.20.0-alpine as base
 
+RUN echo "test... " 
 WORKDIR /var/www/
-
+RUN echo "test" 
+COPY package.json yarn.lock .
+RUN yarn install --frozen-lockfile
 COPY . .
 
-RUN yarn install
-
 RUN yarn build
-
-#RUN rm -rf node_modules
-
-RUN yarn install 
 
 RUN echo "Test"
 

@@ -144,6 +144,9 @@
                 </div>
             </template>
         </div>
+        <!-- {{ form }} -->
+        <!-- {{ offer }} -->
+        <!-- {{ plans }} -->
     </div>
 </template>
 
@@ -501,9 +504,9 @@ const issuesSelected = async (payload) => {
     goToStep(9);
 };
 
-const suggestedIssues = {
+const suggestedIssues = ref({
     details: {},
-};
+});
 
 const issues = computed(() =>
     productInfo.value?.category?.name === 'shoe'

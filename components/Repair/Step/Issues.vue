@@ -123,7 +123,7 @@
                     buttonId="identify-back-issues"
                     :text="$t('Next')"
                     @click="selectIssues"
-                    :isDisabled="!description"
+                    :isDisabled="!description || !isIssuesSelected"
                 />
             </div>
         </div>
@@ -143,6 +143,7 @@ const { t } = useI18n();
 
 const description = ref(props.desc || '');
 const colorChangeSelected = ref(false);
+const isIssuesSelected = ref(false);
 
 const selectedColor = ref(null);
 const suggestedColors = ref([
@@ -190,4 +191,14 @@ watch(
     () => colorChangeSelected.value,
     () => (selectedColor.value = null)
 );
+
+watch(
+    () => props.suggestedIssues,
+    () => {
+        Object.values(props.suggestedIssues.details).some((el) => el)
+            ? (isIssuesSelected.value = true)
+            : (isIssuesSelected.value = false);
+    },
+    { deep: true }
+)
 </script>

@@ -410,7 +410,7 @@ const modelSelected = async (isSearched) => {
         const { editProduct } = useItem();
         const { data: editPro, error: editErr } = await editProduct(
             route.params.id,
-            { body: { crawlId: productToShow.value.crawler_id.toString() } }
+            { body: { crawlId: productToShow.value.crawler_id} }
         );
         if (editPro.value) {
             emits("modelSelected", productToShow.value);
