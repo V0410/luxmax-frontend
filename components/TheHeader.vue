@@ -431,7 +431,7 @@
                     buttonId="login-signup"
                 />
             </div>
-            <div class="flex justify-between items-center hidden">
+            <div class="flex justify-between items-center">
                 <template v-for="item in menuItems[0]" :key="item.id">
 
                     <NuxtLink
@@ -580,7 +580,7 @@ const menuItems = reactive([
             isShow: false,
             routeName: 'market',
             menuType: 'mega',
-            disable: true
+            disable: false
         },
         {
             id: 1,

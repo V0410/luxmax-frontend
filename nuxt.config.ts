@@ -69,9 +69,10 @@ export default defineNuxtConfig({
     },
     routeRules: {
         '/account': { redirect: '/account/info' },
-        // '/auth': { redirect: '/auth/login' },
         '/checkout/buy': { redirect: '/checkout' },
         '/dry-cleaning/request/': { ssr: false},
+        '/market': {ssr: false},
+        '/market/**': {ssr: false},
         '/dry-cleaning/request/**': { ssr: false},
         '/payment/': {ssr:false},
         '/payment/**': {ssr:false}

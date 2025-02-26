@@ -88,9 +88,6 @@ const fetchProducts = async (query) => {
             ? query[key].join('&')
             : query[key];
     });
-    // if (body.page) {
-    //   body.page = body.page - 1;
-    // }
     if (body.price) {
         const [min, max] = body.price?.split('-');
         body.price_to = max;
@@ -161,53 +158,44 @@ const suggestedColors = ref([
     { id: 12, name: t('Pattern') },
 ]);
 
-const detail = computed(() =>
-    allFilters.value?.detail ? allFilters.value?.detail : {}
-);
-
-const allFilters = ref({
-    detail: {
-        price_max: null,
-        price_min: null,
-        categories: categoryList.value.data,
-        brands: brandList.value.data,
-        materials: suggestedMaterials.value,
-        colors: suggestedColors.value,
-    },
-});
 const filters = computed(() =>
-    Object.keys(detail.value)
-        .filter((key) => key !== 'price_max')
+    {
+        const detail = {
+            categories: categoryList.value?.data,
+            brands: brandList.value?.data,
+            materials: suggestedMaterials.value,
+            colors: suggestedColors.value,
+        }
+        return [{
+            id: 'price',
+            title: 'price',
+            value: 'price',
+            type: 'slider',
+            min: null,
+            max: null,
+        }, ...Object.keys(detail)
         .map((key) =>
-            !(key === 'price_max' || key === 'price_min')
-                ? {
-                      id: key,
-                      title: key,
-                      value: key,
-                      type:
-                          key === 'Sort By:' || key === 'Sort By'
-                              ? 'sort'
-                              : key === 'Sale and offers'
-                              ? 'radio'
-                              : 'checkbox',
-                      options: detail.value[key].map((el) => {
-                          return {
-                              id: el,
-                              text: el,
-                              value: el,
-                              count: 1,
-                          };
-                      }),
-                  }
-                : {
-                      id: 'price',
-                      title: 'price',
-                      value: 'price',
-                      type: 'slider',
-                      min: detail.value.price_min,
-                      max: detail.value.price_max,
-                  }
-        )
+            ({
+                id: key,
+                title: key,
+                value: key,
+                type:
+                    key === 'Sort By:' || key === 'Sort By'
+                        ? 'sort'
+                        : key === 'Sale and offers'
+                        ? 'radio'
+                        : 'checkbox',
+                options: Array.isArray(detail[key]) ? detail[key].map((el) => {
+                    return {
+                        id: el,
+                        text: el,
+                        value: el,
+                        count: 1,
+                    };
+                }):[],
+            })
+        )]
+    }
 );
 
 const breadcrumbData = [
